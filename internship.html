@@ -1,0 +1,324 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Available Internships</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8fb;
+}
+
+header{
+background:#0d47a1;
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header h2{
+font-size:28px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-size:18px;
+}
+
+nav a:hover{
+color:#ffcc00;
+}
+
+.container{
+padding:40px;
+}
+
+.container h1{
+text-align:center;
+color:#0d47a1;
+margin-bottom:40px;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+}
+
+.card{
+width:300px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.card h3{
+color:#0d47a1;
+margin-bottom:10px;
+}
+
+.card p{
+margin:8px 0;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#0d47a1;
+color:white;
+border:none;
+border-radius:5px;
+margin-top:15px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#1565c0;
+}
+
+.loading{
+text-align:center;
+font-size:18px;
+color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h2>Student Internship System</h2>
+
+<nav>
+    <a href="/student-dashboard">Dashboard</a>
+    <a href="/internship">View Internship</a>
+    <a href="/profile">Profile</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+
+</header>
+
+<div class="container">
+
+<h1>Available Internships</h1>
+
+<div class="cards" id="internshipCards">
+
+<p class="loading">Loading internships...</p>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+
+/* Firebase Configuration */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyB9iYNUEbmM3Ng6811HRw_r4r_iWP7m2Lc",
+
+authDomain: "sims-87a59.firebaseapp.com",
+
+projectId: "sims-87a59",
+
+storageBucket: "sims-87a59.firebasestorage.app",
+
+messagingSenderId: "957103504527",
+
+appId: "1:957103504527:web:YOUR_APP_ID"
+
+};
+
+
+/* Initialize Firebase */
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* Get internship container */
+
+const internshipCards =
+document.getElementById("internshipCards");
+
+
+/* Load internships */
+
+async function loadInternships(){
+
+try{
+
+const querySnapshot =
+await getDocs(collection(db,"internships"));
+
+internshipCards.innerHTML = "";
+
+
+if(querySnapshot.empty){
+
+internshipCards.innerHTML =
+"<p>No internships available.</p>";
+
+return;
+
+}
+
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+
+const card =
+document.createElement("div");
+
+card.className = "card";
+
+
+card.innerHTML = `
+
+<h3>${data.title || "Internship"}</h3>
+
+<p>
+<b>Company:</b>
+${data.company || "Not specified"}
+</p>
+
+<p>
+<b>Location:</b>
+${data.location || "Not specified"}
+</p>
+
+
+
+<p>
+<b>Stipend:</b>
+${data.stipend || "Not specified"}
+</p>
+
+<button>
+Apply Now
+</button>
+
+`;
+
+
+/* Apply button */
+
+const button =
+card.querySelector("button");
+
+button.addEventListener("click",()=>{
+
+applyInternship(
+data.title || "Internship",
+data.company || "Company"
+);
+
+});
+
+
+internshipCards.appendChild(card);
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+internshipCards.innerHTML =
+"<p>Unable to load internships.</p>";
+
+}
+
+}
+
+
+/* Existing Apply functionality */
+
+function applyInternship(title, company){
+
+const form =
+document.createElement("form");
+
+form.method = "POST";
+
+form.action = "/apply";
+
+
+const internship =
+document.createElement("input");
+
+internship.type = "hidden";
+
+internship.name = "internship";
+
+internship.value = title;
+
+
+const companyInput =
+document.createElement("input");
+
+companyInput.type = "hidden";
+
+companyInput.name = "company";
+
+companyInput.value = company;
+
+
+form.appendChild(internship);
+
+form.appendChild(companyInput);
+
+document.body.appendChild(form);
+
+form.submit();
+
+}
+
+
+/* Start */
+
+loadInternships();
+
+</script>
+
+</body>
+</html>
+```

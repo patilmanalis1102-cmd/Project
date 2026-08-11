@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+}
+
+header{
+    background:#0d47a1;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:18px;
+}
+
+nav a:hover{
+    color:#ffcc00;
+}
+
+.container{
+    padding:40px;
+}
+
+.dashboard-cards{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+    margin-top:30px;
+}
+
+.card{
+    width:300px;
+    padding:25px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+h1{
+    color:#0d47a1;
+    margin-bottom:20px;
+}
+
+button{
+    background:#0d47a1;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+button:hover{
+    background:#1565c0;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">Student Dashboard</div>
+
+<nav>
+<a href="student-dashboard.html">Dashboard</a>
+<a href="/internship">Internships</a>
+<a href="/profile">
+    👤 Profile
+</a>
+<a href="/logout">Logout</a>
+</nav>
+
+</header>
+
+<div class="container">
+
+<h1 style="text-align:center;">Welcome Student 👋</h1>
+
+<div class="dashboard-cards">
+
+<div class="card">
+
+<h2>💼 Available Internships</h2>
+
+<p style="margin-top:15px; margin-bottom:20px;">
+Click below to view all internships.
+</p>
+
+<a href="/internship">
+    <button>View Internships</button>
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>📄 My Applications</h2>
+
+<p style="margin-top:15px; margin-bottom:20px;">
+View your applied internships and application status.
+</p>
+
+<a href="/my-applications">
+    <button>Open</button>
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>👤 My Profile</h2>
+
+<p style="margin-top:15px; margin-bottom:20px;">
+View and edit your profile information.
+</p>
+
+<button onclick="location.href='/profile'">
+    👤 Profile
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>🚪 Logout</h2>
+
+<p style="margin-top:15px; margin-bottom:20px;">
+Logout from your account.
+</p>
+
+<a href="/logout">
+    <button>Logout</button>
+</a>
+
+</div>
+
+</div>
+
+<!-- ================= AI ASSISTANT BUTTON ================= -->
+
+<button type="button" onclick="toggleAI()" class="ai-button">
+    🤖 AI Assistant
+</button>
+
+
+<!-- ================= AI CHAT ================= -->
+
+<div id="aiChat" class="ai-chat">
+
+    <div class="ai-header">
+
+        <span>🤖 AI Internship Assistant</span>
+
+        <button type="button" onclick="toggleAI()">
+            ✕
+        </button>
+
+    </div>
+
+
+    <div id="aiBody" class="ai-body">
+
+        <div class="ai-message ai-bot">
+            Hello! 👋 I'm your AI Internship Assistant.
+            <br><br>
+            Ask me about internships, applications, login or your dashboard.
+        </div>
+
+    </div>
+
+
+    <div class="ai-input-area">
+
+        <input
+            type="text"
+            id="aiInput"
+            placeholder="Ask something..."
+        >
+
+        <button
+            type="button"
+            onclick="sendAIMessage()"
+        >
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+
+<style>
+
+.ai-button{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+
+    background:#0d47a1;
+    color:white;
+    border:none;
+
+    padding:12px 20px;
+    border-radius:25px;
+
+    cursor:pointer;
+    font-size:15px;
+
+    z-index:10000;
+}
+
+.ai-button:hover{
+    background:#1565c0;
+}
+
+.ai-button:hover{
+    background:#1565c0;
+}
+
+
+.ai-chat{
+    display:none;
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:350px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.25);
+    overflow:hidden;
+    z-index:9999;
+}
+
+
+.ai-header{
+    background:#0d47a1;
+    color:white;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:bold;
+}
+
+
+.ai-header button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+
+.ai-body{
+    height:300px;
+    padding:15px;
+    overflow-y:auto;
+    background:#f4f8fb;
+}
+
+
+.ai-message{
+    padding:10px 12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    max-width:85%;
+    line-height:1.4;
+}
+
+
+.ai-user{
+    background:#0d47a1;
+    color:white;
+    margin-left:auto;
+}
+
+
+.ai-bot{
+    background:#e3f2fd;
+    color:#222;
+    margin-right:auto;
+}
+
+
+.ai-input-area{
+    display:flex;
+    padding:10px;
+    gap:8px;
+    border-top:1px solid #ddd;
+}
+
+
+#aiInput{
+    flex:1;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+
+.ai-input-area button{
+    background:#0d47a1;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+
+.ai-input-area button:hover{
+    background:#1565c0;
+}
+
+</style>
+
+
+<script>
+
+function toggleAI(){
+
+    const chat = document.getElementById("aiChat");
+
+    if(chat.style.display === "block"){
+
+        chat.style.display = "none";
+
+    }else{
+
+        chat.style.display = "block";
+
+        document.getElementById("aiInput").focus();
+
+    }
+
+}
+
+
+function sendAIMessage(){
+
+    const input = document.getElementById("aiInput");
+    const body = document.getElementById("aiBody");
+
+    const message = input.value.trim();
+
+    if(message === ""){
+        return;
+    }
+
+
+    // USER MESSAGE
+
+    const userMessage = document.createElement("div");
+
+    userMessage.className = "ai-message ai-user";
+
+    userMessage.innerText = message;
+
+    body.appendChild(userMessage);
+
+
+    input.value = "";
+
+
+    // DEFAULT RESPONSE
+
+    let response =
+        "I can help you with internships, applications, login and the student dashboard.";
+
+
+    const question = message.toLowerCase();
+
+
+    if(
+        question.includes("hello") ||
+        question.includes("hi") ||
+        question.includes("hey")
+    ){
+
+        response =
+        "Hello! 👋 How can I help you with your internship journey?";
+
+    }
+
+    else if(question.includes("internship")){
+
+        response =
+        "You can open the Internships section to view available internship opportunities.";
+
+    }
+
+    else if(
+        question.includes("apply") ||
+        question.includes("how to apply")
+    ){
+
+        response =
+        "Login as a student, open an internship and click the Apply button to submit your application.";
+
+    }
+
+    else if(
+        question.includes("application") ||
+        question.includes("applications")
+    ){
+
+        response =
+        "You can check your submitted applications and their status from My Applications.";
+
+    }
+
+    else if(question.includes("admin")){
+
+        response =
+        "The Admin manages students, internships and internship applications.";
+
+    }
+
+    else if(question.includes("profile")){
+
+        response =
+        "You can view and update your student information from the Profile section.";
+
+    }
+
+    else if(question.includes("dashboard")){
+
+        response =
+        "The Student Dashboard provides access to internships, applications and your profile.";
+
+    }
+
+    else if(question.includes("login")){
+
+        response =
+        "Use your registered student email and password to login to the system.";
+
+    }
+
+
+    // AI RESPONSE
+
+    setTimeout(function(){
+
+        const botMessage = document.createElement("div");
+
+        botMessage.className = "ai-message ai-bot";
+
+        botMessage.innerText = response;
+
+        body.appendChild(botMessage);
+
+        body.scrollTop = body.scrollHeight;
+
+    },500);
+
+}
+
+</script>
+</body>
+</html>

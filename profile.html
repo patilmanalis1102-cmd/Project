@@ -1,0 +1,193 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+}
+
+header{
+    background:#0d47a1;
+    color:white;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h2{
+    margin:0;
+}
+
+header a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.container{
+    width:500px;
+    max-width:90%;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    color:#0d47a1;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border:2px solid #0d47a1;
+}
+
+button{
+    width:100%;
+    background:#0d47a1;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:20px;
+}
+
+button:hover{
+    background:#1565c0;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    color:#0d47a1;
+    text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h2>Student Dashboard</h2>
+
+<div>
+<a href="/student-dashboard">Dashboard</a>
+<a href="/logout">Logout</a>
+</div>
+
+</header>
+
+
+<div class="container">
+
+<h1>My Profile 👤</h1>
+
+<form method="POST">
+
+<label>Name</label>
+<input
+    type="text"
+    name="name"
+    value="{{ student.get('name', '') }}"
+    required
+>
+
+
+<label>Email</label>
+<input
+    type="email"
+    value="{{ student.get('email', '') }}"
+    readonly
+>
+
+
+<label>Mobile</label>
+<input
+    type="text"
+    name="mobile"
+    value="{{ student.get('mobile', '') }}"
+    required
+>
+
+
+<label>College</label>
+<input
+    type="text"
+    name="college"
+    value="{{ student.get('college', '') }}"
+    required
+>
+
+
+<label>Branch</label>
+<input
+    type="text"
+    name="branch"
+    value="{{ student.get('branch', '') }}"
+    required
+>
+
+
+<label>Year</label>
+<input
+    type="text"
+    name="year"
+    value="{{ student.get('year', '') }}"
+    required
+>
+
+
+<button type="submit">
+Save Changes
+</button>
+
+</form>
+
+
+<a href="/student-dashboard" class="back">
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+</body>
+</html>
+```

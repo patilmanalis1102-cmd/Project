@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Internship</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef3ff;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:40px;
+}
+
+.container{
+width:500px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+h2{
+text-align:center;
+color:#0d47a1;
+margin-bottom:20px;
+}
+
+label{
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0 18px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#0d47a1;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#1565c0;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Internship Application</h2>
+
+<label>Student Name</label>
+<input type="text" id="name">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<label>Mobile Number</label>
+<input type="text" id="mobile">
+
+<label>College Name</label>
+<input type="text" id="college">
+
+<label>Internship Title</label>
+<input type="text" id="title" readonly>
+
+<label>Company Name</label>
+<input type="text" id="company" readonly>
+
+<button id="applyBtn">Apply Now</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { 
+getFirestore, 
+collection, 
+addDoc 
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyB9iYNUEbmM3Ng6811HRw_r4r_iWP7m2Lc",
+authDomain:"sims-87a59.firebaseapp.com",
+projectId:"sims-87a59",
+storageBucket:"sims-87a59.firebasestorage.app",
+messagingSenderId:"957103504527",
+appId:"1:957103504527:web:7d6a6c9f17228a7ac5c4fa"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("title").value = params.get("title") || "";
+document.getElementById("company").value = params.get("company") || "";
+
+document.getElementById("applyBtn").addEventListener("click",async()=>{
+
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+let mobile=document.getElementById("mobile").value;
+let college=document.getElementById("college").value;
+let title=document.getElementById("title").value;
+let company=document.getElementById("company").value;
+
+if(name==""||email==""||mobile==""||college==""||title==""||company==""){
+alert("Please fill all fields");
+return;
+}
+
+try{
+
+await addDoc(collection(db,"applications"),{
+
+studentName:name,
+email:email,
+mobile:mobile,
+college:college,
+internship:title,
+company:company,
+status:"Pending",
+appliedOn:new Date().toLocaleDateString()
+
+});
+
+alert("Application Submitted Successfully");
+
+window.location.href="student-dashboard.html";
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+});
+
+</script>
+</body>
+</html>

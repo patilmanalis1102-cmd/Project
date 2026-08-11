@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+}
+
+/* Header */
+header{
+    background:#0d47a1;
+    color:#fff;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h2{
+    font-size:28px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:17px;
+}
+
+nav a:hover{
+    color:#ffeb3b;
+}
+
+/* Welcome */
+.welcome{
+    text-align:center;
+    padding:40px 20px;
+}
+
+.welcome h1{
+    color:#0d47a1;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    color:#555;
+}
+
+/* Cards */
+.cards{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    padding-bottom:40px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#0d47a1;
+    margin-bottom:15px;
+}
+
+.card p{
+    color:#666;
+    margin-bottom:20px;
+}
+
+.card button{
+    background:#0d47a1;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.card button:hover{
+    background:#1565c0;
+}
+
+/* Footer */
+footer{
+    background:#0d47a1;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+
+.logout-btn{
+    display:inline-block;
+    background:#0d47a1;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    text-decoration:none;
+}
+
+.logout-btn:hover{
+    background:#1565c0;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+<h2>Student Internship Management System</h2>
+
+<nav>
+<a href="admin-dashboard.html">Dashboard</a>
+<a href="/logout">Logout</a>
+</nav>
+
+</header>
+
+<div class="welcome">
+<h1>Welcome Admin 👨‍💼</h1>
+<p>Manage Students, Internships and Applications</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>➕ Add Internship</h3>
+<p>Create a new internship.</p>
+<button onclick="location.href='add-internship.html'">
+Open
+</button>
+</div>
+
+<div class="card">
+<h3>📋 View Internships</h3>
+<p>View, Edit & Delete internships.</p>
+<button onclick="location.href='/view-internships'">
+    Open
+</button>
+</div>
+
+<div class="card">
+<h3>👨‍🎓 View Students</h3>
+<p>View all registered students.</p>
+<button onclick="location.href='/view-students'">
+    Open
+</button>
+</div>
+
+<div class="card">
+<h3>📄 View Applications</h3>
+<p>Check internship applications.</p>
+<button onclick="location.href='/view-applications'">
+    Open
+</button>
+</div>
+
+<div class="card">
+    <h3>🚪 Logout</h3>
+    <p>Logout from Admin Account.</p>
+
+    <a href="/logout" class="logout-btn">
+        Logout
+    </a>
+</div>
+
+</div>
+
+<footer>
+© 2026 Student Internship Management System | Admin Panel
+</footer>
+</body>
+</html>

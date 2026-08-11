@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Applications</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8fb;
+}
+
+header{
+background:#0d47a1;
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:bold;
+}
+
+.container{
+width:95%;
+margin:30px auto;
+}
+
+h2{
+text-align:center;
+color:#0d47a1;
+margin-bottom:20px;
+}
+
+.search-box{
+margin-bottom:20px;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+th,td{
+padding:15px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+th{
+background:#0d47a1;
+color:white;
+}
+
+.approve{
+background:#28a745;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.reject{
+background:#dc3545;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.back{
+display:inline-block;
+margin-top:20px;
+padding:10px 20px;
+background:#0d47a1;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>Admin Panel</h2>
+
+<div>
+<a href="/admin-dashboard">Dashboard</a>
+<a href="index.html">Logout</a>
+</div>
+
+</header>
+
+<div class="container">
+
+<h2>Student Applications</h2>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search Student or Internship..." onkeyup="searchApplication()">
+</div>
+
+<table id="applicationTable">
+
+<tr>
+    <th>Student Name</th>
+    <th>Internship</th>
+    <th>Company</th>
+    <th>Applied Date</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% if applications %}
+
+    {% for app in applications %}
+
+    <tr>
+
+        <td>{{ app.get("student_name", "N/A") }}</td>
+
+        <td>{{ app.get("internship", "N/A") }}</td>
+
+        <td>{{ app.get("company", "N/A") }}</td>
+
+        <td>{{ app.get("appliedOn", "N/A") }}</td>
+
+        <td>{{ app.get("status", "Pending") }}</td>
+
+        <td>
+
+            <form action="/update-application/{{ app.get('id') }}/Approved" method="POST" style="display:inline;">
+
+                <button type="submit" class="approve">
+                    Approve
+                </button>
+
+            </form>
+
+            <form action="/update-application/{{ app.get('id') }}/Rejected" method="POST" style="display:inline;">
+
+                <button type="submit" class="reject">
+                    Reject
+                </button>
+
+            </form>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+{% else %}
+
+    <tr>
+        <td colspan="6" style="padding:20px;">
+            No applications found
+        </td>
+    </tr>
+
+{% endif %}
+
+</table>
+
+<a href="/admin-dashboard" class="back"></a>
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+</body>
+</html>

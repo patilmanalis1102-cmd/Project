@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Students</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8fb;
+}
+
+header{
+background:#0d47a1;
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:bold;
+}
+
+.container{
+width:90%;
+margin:30px auto;
+}
+
+h2{
+text-align:center;
+color:#0d47a1;
+margin-bottom:20px;
+}
+
+.search-box{
+margin-bottom:20px;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+th,td{
+padding:15px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+th{
+background:#0d47a1;
+color:white;
+}
+
+.view{
+background:#28a745;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.delete{
+background:#dc3545;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.back{
+margin-top:20px;
+display:inline-block;
+padding:10px 20px;
+background:#0d47a1;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Admin Panel</h2>
+
+<div>
+<a href="admin-dashboard.html">Dashboard</a>
+<a href="index.html">Logout</a>
+</div>
+</header>
+
+<div class="container">
+
+<h2>Registered Students</h2>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search Student..." onkeyup="searchStudent()">
+</div>
+
+<table id="studentTable">
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>College</th>
+<th>Course</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Manali Patil</td>
+<td>manali@gmail.com</td>
+<td>AMG College</td>
+<td>AIML</td>
+<td>
+<button class="view" onclick="alert('Student Profile')">View</button>
+<button class="delete" onclick="deleteStudent(this)">Delete</button>
+</td>
+</tr>
+
+<tr>
+<td>Purva Shirgave</td>
+<td>purva@gmail.com</td>
+<td>AMg</td>
+<td>Computer</td>
+<td>
+<button class="view" onclick="alert('Student Profile')">View</button>
+<button class="delete" onclick="deleteStudent(this)">Delete</button>
+</td>
+</tr>
+
+<tr>
+<td>Ritika Patil</td>
+<td>ritika@gmail.com</td>
+<td>AMG College</td>
+<td>IT</td>
+<td>
+<button class="view" onclick="alert('Student Profile')">View</button>
+<button class="delete" onclick="deleteStudent(this)">Delete</button>
+</td>
+</tr>
+
+</table>
+
+<a href="admin-dashboard.html" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+<script>
+
+function searchStudent(){
+
+let input=document.getElementById("search").value.toUpperCase();
+
+let table=document.getElementById("studentTable");
+
+let tr=table.getElementsByTagName("tr");
+
+for(let i=1;i<tr.length;i++){
+
+let td=tr[i].getElementsByTagName("td")[0];
+
+if(td){
+
+let txt=td.textContent||td.innerText;
+
+tr[i].style.display=txt.toUpperCase().indexOf(input)>-1?"":"none";
+
+}
+
+}
+
+}
+
+function deleteStudent(btn){
+
+if(confirm("Delete this Student?")){
+
+btn.parentNode.parentNode.remove();
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

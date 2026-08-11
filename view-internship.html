@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Internships</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8fb;
+}
+
+header{
+background:#0d47a1;
+color:#fff;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:bold;
+}
+
+.container{
+width:90%;
+margin:30px auto;
+}
+
+h2{
+text-align:center;
+color:#0d47a1;
+margin-bottom:20px;
+}
+
+.search-box{
+margin-bottom:20px;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:16px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+th,td{
+padding:15px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+th{
+background:#0d47a1;
+color:white;
+}
+
+.edit{
+background:#28a745;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.delete{
+background:#dc3545;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.edit:hover{
+background:#218838;
+}
+
+.delete:hover{
+background:#c82333;
+}
+
+.back{
+margin-top:20px;
+display:inline-block;
+padding:10px 20px;
+background:#0d47a1;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+
+<h2>Admin Panel</h2>
+
+<div>
+<a href="admin-dashboard.html">Dashboard</a>
+<a href="index.html">Logout</a>
+</div>
+
+</header>
+
+<div class="container">
+
+<h2>Manage Internships</h2>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Search Internship..." onkeyup="searchTable()">
+</div>
+
+<table id="internshipTable">
+
+<tr>
+<th>Title</th>
+<th>Company</th>
+<th>Location</th>
+<th>Duration</th>
+<th>Stipend</th>
+<th>Action</th>
+</tr>
+{% for internship in internships %}
+<tr>
+    <td>{{ internship.title }}</td>
+    <td>{{ internship.company }}</td>
+    <td>{{ internship.location }}</td>
+    <td>{{ internship.duration }}</td>
+    <td>{{ internship.stipend }}</td>
+
+    <td>
+        <button class="edit">Edit</button>
+
+        <button class="delete" onclick="deleteRow(this)">
+            Delete
+        </button>
+    </td>
+</tr>
+{% endfor %}
+
+
+
+</table>
+
+<a href="admin-dashboard.html" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+<script>
+
+function searchTable(){
+
+let input=document.getElementById("search").value.toUpperCase();
+
+let table=document.getElementById("internshipTable");
+
+let tr=table.getElementsByTagName("tr");
+
+for(let i=1;i<tr.length;i++){
+
+let td=tr[i].getElementsByTagName("td")[0];
+
+if(td){
+
+let txt=td.textContent||td.innerText;
+
+tr[i].style.display=txt.toUpperCase().indexOf(input)>-1?"":"none";
+
+}
+
+}
+
+}
+
+function deleteRow(btn){
+
+if(confirm("Delete this Internship?")){
+
+btn.parentNode.parentNode.remove();
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

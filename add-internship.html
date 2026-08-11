@@ -1,0 +1,210 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Internship</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f8fb;
+}
+
+header{
+background:#0d47a1;
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header h2{
+font-size:24px;
+}
+
+header a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:bold;
+}
+
+.container{
+width:60%;
+margin:40px auto;
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h2{
+text-align:center;
+color:#0d47a1;
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:bold;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:12px;
+margin-top:6px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:15px;
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:25px;
+background:#0d47a1;
+color:white;
+border:none;
+border-radius:6px;
+font-size:17px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1565c0;
+}
+
+#message{
+text-align:center;
+margin-top:15px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Admin Panel</h2>
+
+<div>
+<a href="admin-dashboard.html">Dashboard</a>
+<a href="index.html">Logout</a>
+</div>
+</header>
+
+<div class="container">
+
+<h2>Add Internship</h2>
+
+<form id="internshipForm">
+
+    <input type="text" id="title" placeholder="Internship Title" required>
+
+    <input type="text" id="company" placeholder="Company Name" required>
+
+    <input type="text" id="location" placeholder="Location" required>
+
+    <input type="text" id="duration" placeholder="Duration" required>
+
+    <input type="text" id="stipend" placeholder="Stipend">
+
+    <input type="text" id="skills" placeholder="Skills Required" required>
+
+    <textarea id="description" placeholder="Description" required></textarea>
+
+    <input type="date" id="deadline" required>
+
+    <button type="submit">Save Internship</button>
+
+</form>
+
+<p id="message"></p>
+
+</div>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB9iYNUEbmM3Ng6811HRw_r4r_iWP7m2Lc",
+    authDomain: "sims-87a59.firebaseapp.com",
+    projectId: "sims-87a59",
+    storageBucket: "sims-87a59.firebasestorage.app",
+    messagingSenderId: "957103504527",
+    appId: "1:957103504527:web:7d6a6c9f17228a7ac5c4fa"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+document.getElementById("internshipForm").addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const message = document.getElementById("message");
+
+    try {
+
+        await addDoc(collection(db, "internships"), {
+
+            title: document.getElementById("title").value,
+            company: document.getElementById("company").value,
+            location: document.getElementById("location").value,
+            duration: document.getElementById("duration").value,
+            stipend: document.getElementById("stipend").value,
+            skills: document.getElementById("skills").value,
+            description: document.getElementById("description").value,
+            deadline: document.getElementById("deadline").value,
+
+            createdAt: serverTimestamp()
+
+        });
+
+        message.innerText = "✅ Internship Saved Successfully!";
+        message.style.color = "green";
+
+        document.getElementById("internshipForm").reset();
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.innerText = "❌ Internship save failed: " + error.message;
+        message.style.color = "red";
+
+    }
+
+});
+
+</script>
+</body>
+</html>
+```
